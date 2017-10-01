@@ -67,8 +67,7 @@ void process_input_numbers(unsigned long int *a, unsigned long int *b,
     /* Process input numbers */
     errno = 0;
     char* endptr = NULL;
-    unsigned long int asdf = strtoul(input1, &endptr, 10);
-    *a = asdf;
+    *a = strtoul(input1, &endptr, 10);
     /* error checking performed according to strtol man page */
     if ((errno == ERANGE && (*a == LONG_MAX || *a == LONG_MIN))
         || (errno != 0 && *a == 0)) {
