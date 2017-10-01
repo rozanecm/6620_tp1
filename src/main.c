@@ -139,7 +139,7 @@ int main(int argc, char* argv[]){
     };
     int option_index = 0;
     int c = getopt_long(argc, argv, "hvo:dm", long_options, &option_index);
-    switch(c){
+    switch (c){
         case 'h':
             print_help_data();
             break;
