@@ -13,11 +13,11 @@ void print_help_data(){
                    "\tcommon -v \n"
                    "\tcommon [options] M N \n"
                    "Options:\n"
-                   "\t-h,--help \tPrint usage information.\n"
+                   "\t-h, --help \tPrint usage information.\n"
                    "\t-V, --version \tPrints version information.\n"
                    "\t-o, --output\tPath to output file.\n"
-                   "\t-d  --divisor Just the divisor\n"
-                   "\t-m  --multiple Just the multiple\n"
+                   "\t-d  --divisor\tJust the divisor\n"
+                   "\t-m  --multiple\tJust the multiple\n"
                    "Examples:\n"
                    "\tcommon -o - 256 192\n");
 }
@@ -27,14 +27,7 @@ void print_version_info(){
 }
 
 int mcd(int a, int b) {
-    /* make sure a > b
-     * although this is not strictly necessary, we make it this way so it is
-     * easier to follow */
-    if (a < b){
-        int aux = a;
-        a = b;
-        b = aux;
-    }
+    /* Precondition: a > b */
 
     if (b == 0){
         return a;
@@ -83,6 +76,15 @@ void process_input_numbers(unsigned long int *a, unsigned long int *b,
         exit(EXIT_FAILURE);
     }
 
+    /* make sure a > b
+     * although this is not strictly necessary, we make it this way so it is
+     * easier to follow */
+    if (a < b){
+        unsigned long int aux = *a;
+        *a = *b;
+        *b = aux;
+    }
+
     if (check_range(*a, *b) == 1){
         exit(EXIT_FAILURE);
     }
@@ -95,7 +97,7 @@ void print_mcm(unsigned int a, unsigned int b, char* path){
         /* output to stdout */
         printf("%i\n", mcm(a, b));
     }else{
-        FILE* file = fopen(path, "w");
+        FILE* file = fopen(path, "a");
         /* error checking */
         if (file == NULL){
             exit(EXIT_FAILURE);
@@ -114,7 +116,7 @@ void print_mcd(unsigned int a, unsigned int b, char* path){
         /* output to stdout */
         printf("%i\n", mcd(a, b));
     }else{
-        FILE* file = fopen(path, "w");
+        FILE* file = fopen(path, "a");
         /* error checking */
         if (file == NULL){
             exit(EXIT_FAILURE);
