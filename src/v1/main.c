@@ -129,6 +129,33 @@ void print_mcd(unsigned int a, unsigned int b, char* path){
 }
 
 int main(int argc, char* argv[]){
+    if (argc == 1){
+        /* piped input cant be longer than 15 char */
+        char stdin_buff[10];
+        if (fgets(stdin_buff, 15, stdin) == NULL){
+            /* if getting data from stdin fails, exit */
+            exit(EXIT_FAILURE);
+            }
+        unsigned int a, b;
+        sscanf(stdin_buff, "%u %u", &a, &b);
+
+        /* make sure a > b
+        * although this is not strictly necessary, we make it this way so it is
+        * easier to follow */
+        if (a < b){
+            unsigned int aux = a;
+            a = b;
+            b = aux;
+        }
+
+        if (check_range(a, b) == 1){
+            exit(EXIT_FAILURE);
+        }
+
+        print_mcm(a, b, "-");
+        print_mcd(a, b, "-");
+        return 0;
+    }
     unsigned long int a, b;
     static struct option long_options[] = {
             {"help", 	    no_argument, 		0, 'h' },
@@ -149,8 +176,14 @@ int main(int argc, char* argv[]){
             break;
         case 'o':
             process_input_numbers(&a, &b, argv[argc-2], argv[argc-1]);
-            print_mcm(a, b, optarg);
-            print_mcd(a, b, optarg);
+            if (argc == 4){
+                /* no output file specified */
+                print_mcm(a, b, "-");
+                print_mcd(a, b, "-");
+            } else {
+                print_mcm(a, b, optarg);
+                print_mcd(a, b, optarg);
+            }
             break;
         case 'd':
             process_input_numbers(&a, &b, argv[argc-2], argv[argc-1]);
