@@ -194,6 +194,10 @@ int main(int argc, char* argv[]){
             print_mcm(a, b, "-");
             break;
         default:
+            if (argc > 3){
+                /* if extra argument received */
+                exit(EXIT_FAILURE);
+            }
             process_input_numbers(&a, &b, argv[argc-2], argv[argc-1]);
             print_mcm(a, b, "-");
             print_mcd(a, b, "-");
