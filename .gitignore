@@ -2,7 +2,4 @@
 CMakeLists.txt
 cmake-build-debug/
 common
-src/main.o
-src/main.c
-src/v1/main.o
-src/v2/main.o
+*.o
